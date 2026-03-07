@@ -14,6 +14,7 @@ const typographyVariants = cva(
         body1: 'font-serif',
         body2: 'font-inter text-md',
         strong2: 'font-inter text-md font-bold',
+        caption: 'font-mono uppercase font-bold text-gray-400 text-sm',
       },
     },
     defaultVariants: {

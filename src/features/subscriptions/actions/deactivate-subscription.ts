@@ -3,6 +3,22 @@
 import {api} from '@/libs/api';
 import {cookies} from 'next/headers';
 import {TOKEN_COOKIE_NAME} from '@/features/subscriptions/constants';
+import {env} from '@/libs/utils/env';
+import {SUBSCRIPTION_MODEL} from '@/features/subscriptions/types';
+
+async function deactivateSubscriptionApi(token: string): Promise<void>  {
+  const { error } = await api.DELETE('/subscription', {
+    params: {
+      header: {
+        'x-subscription-token': token
+      }
+    },
+  });
+
+  if (error) {
+    throw new Error(`${error.error?.code}: ${error.error?.message}`);
+  }
+}
 
 export async function deactivateSubscription() {
   const cookieStore = await cookies();
@@ -15,31 +31,20 @@ export async function deactivateSubscription() {
     };
   }
 
-  try {
-    const res = await api.DELETE('/subscription', {
-      params: {
-        header: {
-          'x-subscription-token': token
-        }
-      },
-    });
-
-    if (res.error) {
-      console.error(res.error);
+  if (env.subscriptionsModel === SUBSCRIPTION_MODEL.API) {
+    try {
+      await deactivateSubscriptionApi(token);
+      return { success: true };
+    } catch (error) {
+      console.error('[Deactivate subscription]', error);
       return {
         success: false,
-        error: 'S10: Cannot deactivate subscription'
-      };
+        error: 'Unable to cancel subscription',
+      }
     }
-  } catch (error) {
-    console.error(error);
-    return {
-      success: false,
-      error: 'S11: Cannot deactivate subscription'
-    };
+  } else {
+    // local is a default option
+    cookieStore.delete(TOKEN_COOKIE_NAME);
+    return { success: true };
   }
-
-
-
-  return { success: true, error: null };
 }

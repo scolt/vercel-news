@@ -3,57 +3,58 @@
 import {api} from '@/libs/api';
 import {cookies} from 'next/headers';
 import {TOKEN_COOKIE_NAME} from '@/features/subscriptions/constants';
+import {SUBSCRIPTION_MODEL} from '@/features/subscriptions/types';
+import {env} from '@/libs/utils/env';
+
+async function crateOrActivateSubscriptionApi(token?: string): Promise<string> {
+  let currentToken = token;
+
+  if (!currentToken) {
+      const { error, data } = await api.POST('/subscription/create');
+
+      if (error || !data?.data?.token) {
+        throw new Error(error || 'Token is missing in response');
+      }
+
+      currentToken = data.data.token;
+  }
+
+  const { error } = await api.POST('/subscription', {
+    params: {
+      header: {
+        'x-subscription-token': currentToken
+      }
+    },
+  });
+
+  if (error) {
+    throw new Error(`${error.error?.code}: ${error.error?.message}`);
+  }
+
+
+  return currentToken as string;
+}
 
 export async function activateSubscription() {
   const cookieStore = await cookies();
-  let token = cookieStore.get(TOKEN_COOKIE_NAME)?.value;
+  const token = cookieStore.get(TOKEN_COOKIE_NAME)?.value;
 
-  if (!token) {
+  let validToken = '';
+  if (env.subscriptionsModel === SUBSCRIPTION_MODEL.API) {
     try {
-      const subscription = await api.POST('/subscription/create');
-
-      if (subscription.error || !subscription.data?.data?.token) {
-        console.error('Error: token is missing in response from /subscription/create');
-        return {
-          success: false,
-          error: 'S02: Could not create subscription',
-        }
-      }
-
-      token = subscription.data.data.token;
+      validToken = await crateOrActivateSubscriptionApi(token);
     } catch (error) {
-      console.error(error);
+      console.error('[Create/Activate subscription]', error);
       return {
         success: false,
-        error: 'S03: Could not create subscription',
+        error: 'Unable to create or activate subscription',
       }
     }
+  } else {
+    validToken = 'local-token'; // it is not production case, but API does not work
   }
 
-  try {
-    const res = await api.POST('/subscription', {
-      params: {
-        header: {
-          'x-subscription-token': token
-        }
-      },
-    });
-
-    if (res.error) {
-      return {
-        success: false,
-        error: 'S04: Failed to activate Subscription'
-      };
-    }
-  } catch(error) {
-    console.error(error);
-    return {
-      success: false,
-      error: 'S05: Could not activate subscription',
-    }
-  }
-
-  cookieStore.set(TOKEN_COOKIE_NAME, token);
+  cookieStore.set(TOKEN_COOKIE_NAME, validToken);
 
   return { success: true, error: null };
 }

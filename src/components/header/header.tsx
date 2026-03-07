@@ -2,12 +2,12 @@ import Image from 'next/image';
 import Link from 'next/link';
 import {Typography} from '@/components/ui/typography';
 import {Suspense} from 'react';
-import {SubscriptionButtonFallback} from '@/features/subscriptions/components/subscription-button-fallback';
-import {SubscriptionButton} from '@/features/subscriptions/components/subscription-button';
+import {SubscriptionButtonFallback} from '@/features/subscriptions/components/subscription-button';
+import {SubscriptionBadge} from '@/features/subscriptions/components/subscription-badge';
 
 export function Header() {
   return <header className="flex items-center justify-center my-4 ">
-    <div className="flex flex-col md:flex-row w-full max-w-3xl items-center px-4 gap-8">
+    <div className="flex flex-col md:flex-row w-full max-w-4xl items-center px-4 gap-8">
       <div className="flex gap-4 items-center font-bold">
         <Image
           src="/vercel.svg"
@@ -19,7 +19,7 @@ export function Header() {
           Vercel Daily
         </div>
       </div>
-      <div className="flex gap-4 flex-1">
+      <div className="flex gap-4 flex-1 items-center">
         <nav className="flex items-center gap-4 flex-1" aria-label="Main navigation">
           <Link href="/">
             <Typography as="span" variant="body2">
@@ -33,7 +33,7 @@ export function Header() {
           </Link>
         </nav>
         <Suspense fallback={<SubscriptionButtonFallback />}>
-          <SubscriptionButton />
+          <SubscriptionBadge />
         </Suspense>
       </div>
     </div>

@@ -32,7 +32,7 @@ export function SubscriptionButtonClient ({ subscriptionStatus }: SubscriptionBu
     });
   };
 
-  return <Button onClick={toggleSubscription} disabled={isPending}>
+  return <Button size="lg" onClick={toggleSubscription} disabled={isPending}>
     {isPending && <Loader2 className="animate-spin" />}
     {subscriptionStatus === 'active' ? 'Unsubscribe' : 'Subscribe'}
   </Button>;
