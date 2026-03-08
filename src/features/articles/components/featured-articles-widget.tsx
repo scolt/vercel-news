@@ -1,13 +1,10 @@
 import {Typography} from '@/components/ui/typography';
 import Link from 'next/link';
 import {Suspense} from 'react';
-import {
-  FeaturedArticlesList,
-  FeaturedArticlesListFallback
-} from '@/features/articles/components/featured-articles-list';
+import {FeaturedArticlesList} from '@/features/articles/components/featured-articles-list';
+import {ArticlesListFallback} from '@/features/articles/components/articles-list';
 
-export async function FeaturedArticlesWidget () {
-
+export function FeaturedArticlesWidget () {
   return <section className="flex flex-col gap-4">
     <header className="flex justify-between">
       <div>
@@ -22,7 +19,7 @@ export async function FeaturedArticlesWidget () {
         View all
       </Link>
     </header>
-    <Suspense fallback={<FeaturedArticlesListFallback />}>
+    <Suspense fallback={<ArticlesListFallback />}>
       <FeaturedArticlesList />
     </Suspense>
   </section>

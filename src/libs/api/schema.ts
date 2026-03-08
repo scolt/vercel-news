@@ -384,7 +384,7 @@ export interface operations {
                 /** @description Items per page (max 100) */
                 limit?: number;
                 /** @description Filter by category slug */
-                category?: 'changelog' | 'engineering' | 'customers' | 'company-news' | 'community';
+                category?: string;
                 /** @description Search articles by title, excerpt, or tags */
                 search?: string;
                 /** @description Filter by featured status */

@@ -1,11 +1,12 @@
-'use cache';
-
+// cache is not relevant for this query
 import {api} from '@/libs/api';
-import {cacheLife, cacheTag} from 'next/cache';
 
-export async function getFeaturedArticles() {
-  cacheLife('featured-articles');
-  cacheTag('featured-articles');
+export interface GetFilteredArticlesParams {
+  category?: string;
+  query?: string;
+}
+
+export async function getFilteredArticles(params: GetFilteredArticlesParams) {
   try {
     /*
       TODO: /trending returns only 3 items, featured=true returns only 1, so just limit response to 6 with default list
@@ -14,7 +15,9 @@ export async function getFeaturedArticles() {
     const res = await api.GET('/articles', {
       params: {
         query: {
-          limit: 6,
+          category: params.category,
+          search: params.query,
+          limit: 12,
         }
       }
     });
@@ -25,6 +28,6 @@ export async function getFeaturedArticles() {
     };
   } catch (error) {
     console.error(error);
-    return { error: 'Failed to get featured news', data: null };
+    return { error: 'Failed to get filtered news', data: null };
   }
 }

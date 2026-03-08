@@ -9,7 +9,7 @@ const typographyVariants = cva(
     variants: {
       variant: {
         heading1: 'font-mono text-4xl font-extrabold',
-        heading2: 'font-mono border-b pb-2 text-3xl font-semibold',
+        heading2: 'font-mono text-3xl font-semibold',
         heading3: 'font-mono text-2xl font-semibold',
         body1: 'font-serif',
         body2: 'font-inter text-md',

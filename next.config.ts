@@ -10,6 +10,11 @@ const nextConfig: NextConfig = {
   },
   cacheComponents: true,
   cacheLife: {
+    'categories': {
+      stale: 24 * 60 * 60,
+      revalidate: 12 * 60 * 60,
+      expire: 7 * 24 * 60 * 60,
+    },
     'featured-articles': {
       stale: 60 * 60,
       revalidate: 30 * 60,

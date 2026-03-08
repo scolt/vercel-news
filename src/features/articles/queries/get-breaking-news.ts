@@ -1,10 +1,11 @@
 'use cache';
 
 import {api} from '@/libs/api';
-import {cacheLife} from 'next/cache';
+import {cacheLife, cacheTag} from 'next/cache';
 
 export async function getBreakingNews() {
   cacheLife('breaking-news');
+  cacheTag('breaking-news');
 
   try {
     const res = await api.GET('/breaking-news');
