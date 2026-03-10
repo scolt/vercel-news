@@ -6,6 +6,12 @@ import {useState, SubmitEvent, useEffect} from 'react';
 import {Button} from '@/components/ui/button';
 import {updateCurrentQueryParam} from '@/libs/utils/query-params';
 
+export function ArticlesSearchControlClientFallback() {
+  return <div className="flex animate-pulse justify-center">
+    <div className="w-sm h-9 rounded bg-gray-200" />
+  </div>
+}
+
 export function ArticlesSearchControlClient() {
   const router = useRouter();
   const pathname = usePathname();
@@ -15,7 +21,6 @@ export function ArticlesSearchControlClient() {
   const [value, setValue] = useState('');
 
   useEffect(() => {
-
     // Sync query value to input
     // eslint-disable-next-line react-hooks/set-state-in-effect
     setValue(defaultValue || '');

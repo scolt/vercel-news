@@ -4,7 +4,10 @@ import {
   ArticlesFilterControlsFallback
 } from '@/features/articles/components/articles-filter-controls';
 import {Suspense} from 'react';
-import {ArticlesSearchControlClient} from '@/features/articles/components/articles-search-control-client';
+import {
+  ArticlesSearchControlClient,
+  ArticlesSearchControlClientFallback
+} from '@/features/articles/components/articles-search-control-client';
 import {SearchArticlesList} from '@/features/articles/components/search-articles-list';
 import {ArticlesListFallback} from '@/features/articles/components/articles-list';
 
@@ -33,7 +36,7 @@ export default async function SearchPage({
       <Suspense fallback={<ArticlesFilterControlsFallback />}>
         <ArticlesFilterControls />
       </Suspense>
-      <Suspense>
+      <Suspense fallback={<ArticlesSearchControlClientFallback />}>
         <ArticlesSearchControlClient />
       </Suspense>
     </header>

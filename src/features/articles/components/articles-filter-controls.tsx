@@ -13,7 +13,6 @@ export function ArticlesFilterControlsFallback() {
     className: 'w-20'
   }];
 
-
   return <div className="flex h-6 items-center justify-center w-full gap-3 flex-wrap animate-pulse">
     {categories.map((category) => <div key={category.id}>
       <div className={`h-5 rounded bg-gray-200 ${category.className}`} />
