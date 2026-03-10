@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "gen:openapi": "openapi-typescript ./src/libs/api/openapi.json -o ./src/libs/api/schema.ts",
-    "dev": "next dev",
+    "dev": "next dev --port=3001",
     "build": "next build",
     "start": "next start",
     "start:clean": "next build && next start",

@@ -11,6 +11,9 @@ export function ArticlesFilterControlsFallback() {
   }, {
     id: '3',
     className: 'w-20'
+  }, {
+    id: '4',
+    className: 'w-17'
   }];
 
   return <div className="flex h-6 items-center justify-center w-full gap-3 flex-wrap animate-pulse">
