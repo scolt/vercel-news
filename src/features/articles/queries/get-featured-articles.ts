@@ -19,12 +19,9 @@ export async function getFeaturedArticles() {
       }
     });
 
-    return {
-      error: null,
-      data: res.data?.data || [],
-    };
+    return res.data?.data || [];
   } catch (error) {
     console.error(error);
-    return { error: 'Failed to get featured news', data: null };
+    throw new Error('Failed to get featured news');
   }
 }

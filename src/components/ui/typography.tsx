@@ -23,15 +23,17 @@ const typographyVariants = cva(
   }
 )
 
-function Typography({
-                      className,
-                      variant = 'body1',
-                      as = 'p',
-                      ...props
-                    }: React.ComponentProps<'p'> &
+export type TypographyProps = React.ComponentProps<'p'> &
   VariantProps<typeof typographyVariants> & {
   as?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'p' | 'span' | 'strong',
-}) {
+}
+
+function Typography({
+  className,
+  variant = 'body1',
+  as = 'p',
+  ...props
+}: TypographyProps) {
   const Comp = as;
 
   return (

@@ -12,7 +12,7 @@ export interface ArticlePreviewProps {
 export function ArticlePreview({article}: ArticlePreviewProps) {
   const publishedAt = dayjs(article.publishedAt).format('MMM DD, YYYY');
 
-  return <Link href={`/articles/${article.slug}`} className="flex w-full md:w-[calc(33%-0.66rem)] sm:w-[calc(50%-0.5rem)]">
+  return <Link href={`/news/${article.slug}`} className="flex w-full md:w-[calc(33%-0.66rem)] sm:w-[calc(50%-0.5rem)]">
     <Card className="w-full">
       {article.image && <Image
         className="relative z-20 aspect-video w-full object-cover"

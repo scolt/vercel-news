@@ -26,21 +26,13 @@ export async function getSubscriptionStatus() {
   const token = cookieStore.get(TOKEN_COOKIE_NAME)?.value;
 
   if (!token) {
-    return {
-      data: SUBSCRIPTION_STATUS.NOT_ACTIVE
-    };
+    return SUBSCRIPTION_STATUS.NOT_ACTIVE;
   }
 
   try {
-    const subscriptionStatus = await getSubscriptionStatusApi(token);
-    return {
-      data: subscriptionStatus,
-    }
+    return getSubscriptionStatusApi(token);
   } catch(error) {
     console.error('[Subscription status]', error);
-    return {
-      error: 'Unable to get subscription status',
-      data: SUBSCRIPTION_STATUS.NOT_ACTIVE
-    }
+    return SUBSCRIPTION_STATUS.NOT_ACTIVE;
   }
 }

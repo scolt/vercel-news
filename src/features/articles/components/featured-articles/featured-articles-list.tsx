@@ -5,14 +5,9 @@ import Link from 'next/link';
 import {ArticlesList} from '@/features/articles/components/articles-list/articles-list';
 
 export async function FeaturedArticlesList() {
-  const { error, data } = await getFeaturedArticles();
-
-  if (error) {
-    // silently hide the section, for MVP it is enough, better to have some UI message
-    return null;
-  }
+  const articles = await getFeaturedArticles();
   
-  if (!data || data.length === 0) {
+  if (articles.length === 0) {
     return <div>
       <Typography variant="body2">There is no featured news for today.</Typography>
       <Link href="/search">
@@ -21,5 +16,5 @@ export async function FeaturedArticlesList() {
     </div>
   }
   
-  return <ArticlesList articles={data} />;
+  return <ArticlesList articles={articles} />;
 }

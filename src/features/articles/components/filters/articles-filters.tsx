@@ -3,6 +3,6 @@ import {ArticlesFiltersClient} from '@/features/articles/components/filters/arti
 
 export async function ArticlesFilters() {
   const categories = await getArticlesCategories();
-  
-  return <ArticlesFiltersClient categories={categories.data || []}/>;
+
+  return <ArticlesFiltersClient categories={categories}/>;
 }

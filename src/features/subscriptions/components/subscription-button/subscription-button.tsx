@@ -4,5 +4,5 @@ import {SubscriptionButtonClient} from './subscription-button-client';
 export async function SubscriptionButton ()  {
   const subscriptionStatus = await getSubscriptionStatus();
 
-  return <SubscriptionButtonClient subscriptionStatus={subscriptionStatus.data} />
+  return <SubscriptionButtonClient subscriptionStatus={subscriptionStatus} />
 }

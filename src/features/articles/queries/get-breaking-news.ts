@@ -9,14 +9,9 @@ export async function getBreakingNews() {
 
   try {
     const res = await api.GET('/breaking-news');
-    return {
-      error: null,
-      data: res.data?.data,
-    };
+    return res.data?.data;
   } catch (error) {
     console.error(error);
-    return { error: 'Failed to get breaking news', data: null };
+    throw new Error('Failed to get breaking news')
   }
-
-
 }

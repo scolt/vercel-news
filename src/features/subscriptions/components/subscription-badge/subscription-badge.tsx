@@ -4,7 +4,7 @@ import {Podcast} from 'lucide-react';
 
 export async function SubscriptionBadge ()  {
   const subscriptionStatus = await getSubscriptionStatus();
-  const hasActiveSubscription = subscriptionStatus.data === SUBSCRIPTION_STATUS.ACTIVE;
+  const hasActiveSubscription = subscriptionStatus === SUBSCRIPTION_STATUS.ACTIVE;
   return <div className="flex gap-1 text-xs font-bold rounded-md p-1 text-gray-500">
     <Podcast
       size={18}

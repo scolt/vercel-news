@@ -9,12 +9,9 @@ export async function getArticlesCategories() {
   try {
     const { data } = await api.GET('/categories');
 
-    return {
-      error: null,
-      data: data?.data || [],
-    };
+    return data?.data || [];
   } catch (error) {
     console.error(error);
-    return { error: 'Failed to get categories', data: null };
+    throw new Error('Failed to get categories');
   }
 }
