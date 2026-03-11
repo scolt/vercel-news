@@ -1,5 +1,5 @@
 import {Typography} from '@/components/ui/typography';
-import {ArticlesList} from '@/features/articles/components/articles-list';
+import {ArticlesList} from '@/features/articles/components/articles-list/articles-list';
 import {getFilteredArticles} from '@/features/articles/queries/get-filtered-articles';
 import Link from 'next/link';
 import {Button} from '@/components/ui/button';

@@ -1,15 +1,11 @@
-import {Typography} from '@/components/ui/typography';
-import {
-  ArticlesFilterControls,
-  ArticlesFilterControlsFallback
-} from '@/features/articles/components/articles-filter-controls';
 import {Suspense} from 'react';
-import {
-  ArticlesSearchControlClient,
-  ArticlesSearchControlClientFallback
-} from '@/features/articles/components/articles-search-control-client';
+
+import {Typography} from '@/components/ui/typography';
+
 import {SearchArticlesList} from '@/features/articles/components/search-articles-list';
-import {ArticlesListFallback} from '@/features/articles/components/articles-list';
+import {ArticlesFilters} from '@/features/articles/components/filters/articles-filters';
+import {ArticlesFiltersFallback} from '@/features/articles/components/filters/articles-filters-fallback';
+import {ArticlesListFallback} from '@/features/articles/components/articles-list/articles-list-fallback';
 
 export const metadata = { title: 'Search news' };
 
@@ -27,21 +23,18 @@ export default async function SearchPage({
 }: SearchPageProps) {
   const { category, query } = await searchParams;
 
-  return <div className="flex flex-col w-full max-w-4xl m-auto pt-10 gap-12">
-    <header className="flex flex-col max-w-3xl items-center m-auto justify-center gap-6">
+  return <div><div className="flex flex-col w-full max-w-4xl m-auto p-4 pt-10 gap-12">
+    <header className="flex flex-col w-full max-w-3xl items-center m-auto justify-center gap-6">
       <div>
         <Typography variant="heading2" className="text-center">Find news</Typography>
         <Typography variant="heading3" className="text-center hidden sm:flex">that meet with your needs</Typography>
       </div>
-      <Suspense fallback={<ArticlesFilterControlsFallback />}>
-        <ArticlesFilterControls />
-      </Suspense>
-      <Suspense fallback={<ArticlesSearchControlClientFallback />}>
-        <ArticlesSearchControlClient />
+      <Suspense fallback={<ArticlesFiltersFallback />}>
+        <ArticlesFilters />
       </Suspense>
     </header>
     <Suspense key={`${category}-${query}`} fallback={<ArticlesListFallback />}>
       <SearchArticlesList category={category} query={query} />
     </Suspense>
-  </div>;
+  </div></div>;
 }

@@ -2,7 +2,7 @@ import {getFeaturedArticles} from '@/features/articles/queries/get-featured-arti
 import {Typography} from '@/components/ui/typography';
 import {Button} from '@/components/ui/button';
 import Link from 'next/link';
-import {ArticlesList} from '@/features/articles/components/articles-list';
+import {ArticlesList} from '@/features/articles/components/articles-list/articles-list';
 
 export async function FeaturedArticlesList() {
   const { error, data } = await getFeaturedArticles();

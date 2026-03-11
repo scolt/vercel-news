@@ -1,13 +1,5 @@
-import {ArticlePreview, ArticlePreviewFallback} from '@/features/articles/components/article-preview';
+import {ArticlePreview} from '@/features/articles/components/article-preview/article-preview';
 import {components} from '@/libs/api';
-
-export function ArticlesListFallback() {
-  const cards = [0,1,3];
-
-  return <div className="flex flex-wrap gap-4 justify-between animate-pulse w-full" aria-label="Loading" role="status">
-    {cards.map((card) => <ArticlePreviewFallback key={card} />)}
-  </div>;
-}
 
 export interface ArticleListProps {
   articles: components['schemas']['Article'][];

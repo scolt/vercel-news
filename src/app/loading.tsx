@@ -1,5 +1,5 @@
-import {BreakingNewsWidgetFallback} from '@/features/articles/components/breaking-news-widget';
-import {ArticlesListFallback} from '@/features/articles/components/articles-list';
+import {ArticlesListFallback} from '@/features/articles/components/articles-list/articles-list-fallback';
+import {BreakingNewsWidgetFallback} from '@/features/articles/components/breaking-news/breaking-news-widget-fallback';
 
 export default function Loading() {
   return (

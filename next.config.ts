@@ -21,9 +21,9 @@ const nextConfig: NextConfig = {
       expire: 4 * 60 * 60,
     },
     'breaking-news': {
-      stale: 150, // stale for 2.5 mins
-      revalidate: 60, // 1 min
-      expire: 300, // 5 mins is maximum for breaking news
+      stale: 60,
+      revalidate: 30,
+      expire: 120,
     }
   },
   /* config options here */

@@ -2,21 +2,22 @@ import Image from 'next/image';
 import Link from 'next/link';
 import {Typography} from '@/components/ui/typography';
 import {Suspense} from 'react';
-import {SubscriptionButtonFallback} from '@/features/subscriptions/components/subscription-button';
-import {SubscriptionBadge} from '@/features/subscriptions/components/subscription-badge';
+import {SubscriptionBadgeFallback} from '@/features/subscriptions/components/subscription-badge/subscription-badge-fallback';
+import {SubscriptionBadge} from '@/features/subscriptions/components/subscription-badge/subscription-badge';
 
 export function Header() {
   return <header className="flex items-center justify-center my-4 ">
-    <div className="flex flex-col md:flex-row w-full max-w-4xl items-center px-4 gap-8">
-      <div className="flex gap-4 items-center font-bold">
+    <div className="flex flex-row w-full max-w-4xl items-center px-4 gap-8">
+      <div className="flex gap-1 items-center font-bold">
         <Image
           src="/vercel.svg"
           alt="Vercel Daily News"
-          height={32}
-          width={32}
+          height={24}
+          width={24}
         />
         <div className="font-mono">
-          Vercel Daily
+          <span className="hidden sm:inline">Vercel&nbsp;</span>
+          <span>Daily</span>
         </div>
       </div>
       <div className="flex gap-4 flex-1 items-center">
@@ -32,7 +33,7 @@ export function Header() {
             </Typography>
           </Link>
         </nav>
-        <Suspense fallback={<SubscriptionButtonFallback />}>
+        <Suspense fallback={<SubscriptionBadgeFallback />}>
           <SubscriptionBadge />
         </Suspense>
       </div>

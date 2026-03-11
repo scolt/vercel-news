@@ -1,8 +1,8 @@
 import {Typography} from '@/components/ui/typography';
 import Link from 'next/link';
 import {Suspense} from 'react';
-import {FeaturedArticlesList} from '@/features/articles/components/featured-articles-list';
-import {ArticlesListFallback} from '@/features/articles/components/articles-list';
+import {FeaturedArticlesList} from '@/features/articles/components/featured-articles/featured-articles-list';
+import {ArticlesListFallback} from "@/features/articles/components/articles-list/articles-list-fallback";
 
 export function FeaturedArticlesWidget () {
   return <section className="flex flex-col gap-4">

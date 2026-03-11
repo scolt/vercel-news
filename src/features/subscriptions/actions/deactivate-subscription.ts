@@ -3,8 +3,6 @@
 import {api} from '@/libs/api';
 import {cookies} from 'next/headers';
 import {TOKEN_COOKIE_NAME} from '@/features/subscriptions/constants';
-import {env} from '@/libs/utils/env';
-import {SUBSCRIPTION_MODEL} from '@/features/subscriptions/types';
 
 async function deactivateSubscriptionApi(token: string): Promise<void>  {
   const { error } = await api.DELETE('/subscription', {
@@ -31,20 +29,14 @@ export async function deactivateSubscription() {
     };
   }
 
-  if (env.subscriptionsModel === SUBSCRIPTION_MODEL.API) {
-    try {
-      await deactivateSubscriptionApi(token);
-      return { success: true };
-    } catch (error) {
-      console.error('[Deactivate subscription]', error);
-      return {
-        success: false,
-        error: 'Unable to cancel subscription',
-      }
-    }
-  } else {
-    // local is a default option
-    cookieStore.delete(TOKEN_COOKIE_NAME);
+  try {
+    await deactivateSubscriptionApi(token);
     return { success: true };
+  } catch (error) {
+    console.error('[Deactivate subscription]', error);
+    return {
+      success: false,
+      error: 'Unable to cancel subscription',
+    }
   }
 }

@@ -6,7 +6,12 @@ export async function SubscriptionBadge ()  {
   const subscriptionStatus = await getSubscriptionStatus();
   const hasActiveSubscription = subscriptionStatus.data === SUBSCRIPTION_STATUS.ACTIVE;
   return <div className="flex gap-1 text-xs font-bold rounded-md p-1 text-gray-500">
-    {hasActiveSubscription && <Podcast size={18} /> }
-    {hasActiveSubscription ? 'Subscribed' : 'Not subscribed'}
+    <Podcast
+      size={18}
+      className={hasActiveSubscription ? 'text-green-700' : 'text-yellow-600'}
+    />
+    <span className="hidden sm:inline-block hidden sm:inline">
+      {hasActiveSubscription ? 'Subscribed' : 'Not subscribed'}
+    </span>
   </div>;
 }

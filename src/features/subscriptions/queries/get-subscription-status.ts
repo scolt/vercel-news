@@ -1,7 +1,6 @@
 import {cookies} from 'next/headers';
 import {api} from '@/libs/api';
-import {env} from '@/libs/utils/env';
-import {SUBSCRIPTION_MODEL, SUBSCRIPTION_STATUS} from '@/features/subscriptions/types';
+import {SUBSCRIPTION_STATUS} from '@/features/subscriptions/types';
 import {TOKEN_COOKIE_NAME} from '@/features/subscriptions/constants';
 
 async function getSubscriptionStatusApi(token: string) {
@@ -32,22 +31,16 @@ export async function getSubscriptionStatus() {
     };
   }
 
-  if (env.subscriptionsModel === SUBSCRIPTION_MODEL.API) {
-    try {
-      const subscriptionStatus = await getSubscriptionStatusApi(token);
-      return {
-        data: subscriptionStatus,
-      }
-    } catch(error) {
-      console.error('[Subscription status]', error);
-      return {
-        error: 'Unable to get subscription status',
-        data: SUBSCRIPTION_STATUS.NOT_ACTIVE
-      }
-    }
-  } else {
+  try {
+    const subscriptionStatus = await getSubscriptionStatusApi(token);
     return {
-      data: SUBSCRIPTION_STATUS.ACTIVE
+      data: subscriptionStatus,
+    }
+  } catch(error) {
+    console.error('[Subscription status]', error);
+    return {
+      error: 'Unable to get subscription status',
+      data: SUBSCRIPTION_STATUS.NOT_ACTIVE
     }
   }
 }
