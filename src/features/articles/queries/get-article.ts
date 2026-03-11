@@ -1,28 +1,31 @@
-'use cache';
-
-import {api, components} from '@/libs/api';
+import {api} from '@/libs/api';
 import {cacheLife, cacheTag} from 'next/cache';
 
-export async function getArticle(slug: string) {
+export async function getArticleApi (slug: string) {
+  'use cache';
   cacheLife('article');
   cacheTag(`article-${slug}`);
 
-  try {
-    const { data } = await api.GET('/articles/{id}', {
-      params: {
-        path: {
-          id: slug,
-        }
+  const { data } = await api.GET('/articles/{id}', {
+    params: {
+      path: {
+        id: slug,
       }
-    });
-
-    if (!data || !data.data || !data.data.content)  {
-      return null;
     }
+  });
 
-    return data.data;
+  if (!data || !data.data || !data.data.content)  {
+    return null;
+  }
+
+  return data.data;
+}
+
+export async function getArticle(slug: string) {
+  try {
+    return await getArticleApi(slug);
   } catch(error) {
-    console.error(error);
+    console.error('[Article]', error);
     throw new Error('Unable to get article');
   }
 }

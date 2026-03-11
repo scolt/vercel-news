@@ -24,18 +24,21 @@ export async function deactivateSubscription() {
 
   if (!token) {
     return {
-      success: false,
+      data: null,
       error: 'There is no active subscription',
     };
   }
 
   try {
     await deactivateSubscriptionApi(token);
-    return { success: true };
+    return {
+      data: true,
+      error: null
+    };
   } catch (error) {
     console.error('[Deactivate subscription]', error);
     return {
-      success: false,
+      data: null,
       error: 'Unable to cancel subscription',
     }
   }

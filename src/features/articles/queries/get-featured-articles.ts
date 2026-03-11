@@ -3,25 +3,37 @@
 import {api} from '@/libs/api';
 import {cacheLife, cacheTag} from 'next/cache';
 
-export async function getFeaturedArticles() {
+export async function getFeaturedArticlesApi () {
+  'use cache';
   cacheLife('featured-articles');
   cacheTag('featured-articles');
-  try {
-    /*
-      TODO: /trending returns only 3 items, featured=true returns only 1, so just limit response to 6 with default list
-      Review before submit.
-    */
-    const res = await api.GET('/articles', {
-      params: {
-        query: {
-          limit: 6,
-        }
-      }
-    });
 
-    return res.data?.data || [];
+  const res = await api.GET('/articles', {
+    params: {
+      query: {
+        featured: 'true',
+        limit: 6,
+      }
+    }
+  });
+
+  return res.data?.data || [];
+}
+
+export async function getFeaturedArticles() {
+  try {
+    const data = await getFeaturedArticlesApi();
+
+    return {
+      data: data || null,
+      error: null,
+    };
   } catch (error) {
-    console.error(error);
-    throw new Error('Failed to get featured news');
+    console.error('[Featured articles]', error);
+
+    return {
+      data: null,
+      error: 'An error occurred while retrieving featured articles',
+    }
   }
 }

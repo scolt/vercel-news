@@ -4,11 +4,11 @@ import {getArticleDTO} from '@/features/articles/dto/article';
 
 export async function getProtectedArticle(slug: string) {
   const article = await getArticle(slug);
-  const subscriptionStatus = await getSubscriptionStatus();
+  const { data } = await getSubscriptionStatus();
   
   if (!article) {
     return null;
   }
 
-  return getArticleDTO(article, SUBSCRIPTION_STATUS.ACTIVE === subscriptionStatus);
+  return getArticleDTO(article, data === SUBSCRIPTION_STATUS.ACTIVE);
 }

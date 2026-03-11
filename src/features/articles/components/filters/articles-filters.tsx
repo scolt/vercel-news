@@ -2,7 +2,8 @@ import {getArticlesCategories} from '@/features/articles/queries/get-articles-ca
 import {ArticlesFiltersClient} from '@/features/articles/components/filters/articles-filters-client';
 
 export async function ArticlesFilters() {
-  const categories = await getArticlesCategories();
+  // we are safe to ignore error here
+  const { data } = await getArticlesCategories();
 
-  return <ArticlesFiltersClient categories={categories}/>;
+  return <ArticlesFiltersClient categories={data}/>;
 }

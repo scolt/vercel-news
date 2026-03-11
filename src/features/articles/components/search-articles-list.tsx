@@ -13,8 +13,10 @@ export async function SearchArticlesList(props: SearchArticlesListProps) {
   const { error, data } = await getFilteredArticles(props);
 
   if (error) {
-    // silently hide the section, for MVP it is enough, better to have some UI message
-    return null;
+    return <div className="flex flex-col items-center justify-center w-full gap-2">
+      <Typography variant="heading3">Something went wrong</Typography>
+      <Typography variant="body2">Please try again later</Typography>
+    </div>;
   }
 
   if (!data || data.length === 0) {
@@ -23,7 +25,7 @@ export async function SearchArticlesList(props: SearchArticlesListProps) {
       <Link href="/search">
         <Button variant="default">View all articles</Button>
       </Link>
-    </div>
+    </div>;
   }
 
   return <ArticlesList articles={data} />;

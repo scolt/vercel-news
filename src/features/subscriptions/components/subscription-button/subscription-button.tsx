@@ -2,7 +2,7 @@ import {getSubscriptionStatus} from '@/features/subscriptions/queries/get-subscr
 import {SubscriptionButtonClient} from './subscription-button-client';
 
 export async function SubscriptionButton ()  {
-  const subscriptionStatus = await getSubscriptionStatus();
+  const { data } = await getSubscriptionStatus();
 
-  return <SubscriptionButtonClient subscriptionStatus={subscriptionStatus} />
+  return <SubscriptionButtonClient subscriptionStatus={data} />
 }

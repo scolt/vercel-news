@@ -5,9 +5,14 @@ import Link from 'next/link';
 import {ArticlesList} from '@/features/articles/components/articles-list/articles-list';
 
 export async function FeaturedArticlesList() {
-  const articles = await getFeaturedArticles();
+  const { error, data } = await getFeaturedArticles();
+
+  if (error) {
+    // non-critical functionally, if error occurred we are safe to hide it
+    return null;
+  }
   
-  if (articles.length === 0) {
+  if (!data || data.length === 0) {
     return <div>
       <Typography variant="body2">There is no featured news for today.</Typography>
       <Link href="/search">
@@ -16,5 +21,5 @@ export async function FeaturedArticlesList() {
     </div>
   }
   
-  return <ArticlesList articles={articles} />;
+  return <ArticlesList articles={data} />;
 }

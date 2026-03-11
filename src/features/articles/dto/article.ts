@@ -14,6 +14,7 @@ export function getArticleDTO(article: components['schemas']['Article'], isFullC
     author: article.author,
     image: article.image,
     category: article.category,
+    publishedAt: article.publishedAt,
     content: isFullContent ? content : content.slice(0,promoSectionsLimit),
     isFullContent: isFullContent,
   }

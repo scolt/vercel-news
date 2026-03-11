@@ -1,17 +1,16 @@
+import Image from 'next/image';
+import Link from 'next/link';
+
 import {components} from '@/libs/api';
 import {Card, CardDescription, CardHeader, CardTitle} from '@/components/ui/card';
-import Image from 'next/image';
 import {Typography} from '@/components/ui/typography';
-import Link from 'next/link';
-import dayjs from 'dayjs';
+import {DisplayDate} from '@/components/display-date/display-date';
 
 export interface ArticlePreviewProps {
   article: components['schemas']['Article']
 }
 
 export function ArticlePreview({article}: ArticlePreviewProps) {
-  const publishedAt = dayjs(article.publishedAt).format('MMM DD, YYYY');
-
   return <Link href={`/news/${article.slug}`} className="flex w-full md:w-[calc(33%-0.66rem)] sm:w-[calc(50%-0.5rem)]">
     <Card className="w-full">
       {article.image && <Image
@@ -24,7 +23,9 @@ export function ArticlePreview({article}: ArticlePreviewProps) {
       <CardHeader>
         <div className="flex justify-between">
           <Typography variant="body2">{article.category}</Typography>
-          <Typography variant="body2">{publishedAt}</Typography>
+          <Typography variant="body2">
+            <DisplayDate date={article.publishedAt} />
+          </Typography>
         </div>
         <CardTitle className="line-clamp-2 text-balance">{article.title}</CardTitle>
         <CardDescription className="line-clamp-2">{article.excerpt}</CardDescription>

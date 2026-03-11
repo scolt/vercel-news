@@ -252,7 +252,7 @@ export interface components {
              */
             image?: string;
             /**
-             * Format: date-time
+             * Format: display-date-time
              * @example 2026-01-15T09:00:00Z
              */
             publishedAt?: string;
@@ -280,7 +280,7 @@ export interface components {
             /** @example company-news */
             category?: string;
             /**
-             * Format: date-time
+             * Format: display-date-time
              * @example 2026-01-26T09:00:00Z
              */
             publishedAt?: string;
@@ -296,13 +296,13 @@ export interface components {
              */
             status?: 'active' | 'inactive';
             /**
-             * Format: date-time
+             * Format: display-date-time
              * @example 2026-01-15T12:00:00Z
              */
             subscribedAt?: string | null;
-            /** Format: date-time */
+            /** Format: display-date-time */
             createdAt?: string;
-            /** Format: date-time */
+            /** Format: display-date-time */
             updatedAt?: string;
         };
         Category: {
@@ -835,7 +835,7 @@ export interface operations {
                             /** @example ok */
                             status?: string;
                             /**
-                             * Format: date-time
+                             * Format: display-date-time
                              * @example 2026-01-15T12:00:00Z
                              */
                             timestamp?: string;

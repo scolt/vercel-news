@@ -1,4 +1,4 @@
-import Image from "next/image";
+import Image from 'next/image';
 import Markdown from 'react-markdown';
 import {Typography, TypographyProps} from '@/components/ui/typography';
 
@@ -84,7 +84,7 @@ export default function  BlocksView({ blocks }: BlocksViewProps) {
         </ol>;
       }
 
-      if (block.type === 'image') {
+      if (block.type === 'image' && block.src) {
         return <Image
           key={`${block.type}-${index}`}
           src={block.src}

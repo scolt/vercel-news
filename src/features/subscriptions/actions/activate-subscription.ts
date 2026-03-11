@@ -4,7 +4,7 @@ import {api} from '@/libs/api';
 import {cookies} from 'next/headers';
 import {TOKEN_COOKIE_NAME} from '@/features/subscriptions/constants';
 
-async function crateOrActivateSubscriptionApi(token?: string): Promise<string> {
+export async function activateSubscriptionApi(token?: string): Promise<string> {
   let currentToken = token;
 
   if (!currentToken) {
@@ -38,15 +38,19 @@ export async function activateSubscription() {
   const token = cookieStore.get(TOKEN_COOKIE_NAME)?.value;
 
   try {
-    const validToken = await crateOrActivateSubscriptionApi(token);
-
+    const validToken = await activateSubscriptionApi(token);
     cookieStore.set(TOKEN_COOKIE_NAME, validToken);
 
-    return { success: true, error: null };
+    return {
+      data: true,
+      error: null
+    };
   } catch (error) {
     console.error('[Create/Activate subscription]', error);
+    cookieStore.delete(TOKEN_COOKIE_NAME);
+
     return {
-      success: false,
+      data: null,
       error: 'Unable to create or activate subscription',
     }
   }

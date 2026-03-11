@@ -1,17 +1,28 @@
-'use cache';
-
-import {cacheLife} from 'next/cache';
+import {cacheLife, cacheTag} from 'next/cache';
 import {api} from '@/libs/api';
 
-export async function getArticlesCategories() {
+export async function getArticleCategoriesApi() {
+  'use cache';
   cacheLife('categories');
+  cacheTag('categories');
 
+  const { data } = await api.GET('/categories');
+
+  return data?.data || [];
+}
+
+export async function getArticlesCategories() {
   try {
-    const { data } = await api.GET('/categories');
-
-    return data?.data || [];
+    const data = await getArticleCategoriesApi();
+    return {
+      data: data || [],
+      error: null,
+    }
   } catch (error) {
-    console.error(error);
-    throw new Error('Failed to get categories');
+    console.error('[Categories]', error);
+    return {
+      data: [],
+      error: 'Unable to get list of categories',
+    }
   }
 }
