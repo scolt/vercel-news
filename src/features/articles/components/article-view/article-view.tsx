@@ -4,7 +4,7 @@ import {getProtectedArticle} from '@/features/articles/queries/get-protected-art
 import BlocksView from '@/components/blocks-view/blocks-view';
 import {Typography} from '@/components/ui/typography';
 import {SubscriptionPromo} from '@/features/subscriptions';
-import {DisplayDate} from "@/components/display-date/display-date";
+import {DisplayDate} from '@/components/display-date/display-date';
 
 export interface ArticleViewProps {
   slug: string;

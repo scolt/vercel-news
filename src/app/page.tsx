@@ -1,5 +1,4 @@
 import {Suspense} from 'react';
-import {ErrorBoundary} from 'react-error-boundary';
 
 import {BreakingNewsWidget} from '@/features/articles/components/breaking-news/breaking-news-widget';
 import {FeaturedArticlesWidget} from '@/features/articles/components/featured-articles/featured-articles-widget';

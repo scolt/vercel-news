@@ -10,7 +10,7 @@ export async function SubscriptionBadge ()  {
       size={18}
       className={hasActiveSubscription ? 'text-green-700' : 'text-yellow-600'}
     />
-    <span className="hidden sm:inline-block hidden sm:inline">
+    <span className="hidden sm:inline-block">
       {hasActiveSubscription ? 'Subscribed' : 'Not subscribed'}
     </span>
   </div>;

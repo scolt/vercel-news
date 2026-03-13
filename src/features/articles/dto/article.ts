@@ -19,3 +19,10 @@ export function getArticleDTO(article: components['schemas']['Article'], isFullC
     isFullContent: isFullContent,
   }
 }
+
+export function getBreakingNewsDto(breakingNews: components['schemas']['BreakingNews'], articleSlug?: string) {
+  return {
+    title: breakingNews.headline,
+    slug: articleSlug || '',
+  };
+}
