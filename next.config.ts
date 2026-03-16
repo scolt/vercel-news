@@ -5,7 +5,7 @@ const nextConfig: NextConfig = {
     qualities: [50, 75],
     remotePatterns: [{
       protocol: 'https',
-      hostname: '**public.blob.vercel-storage.com'
+      hostname: '**.public.blob.vercel-storage.com'
     }]
   },
   cacheComponents: true,
@@ -14,19 +14,19 @@ const nextConfig: NextConfig = {
       expire: 7 * 24 * 60 * 60,
     },
     'categories': {
-      stale: 24 * 60 * 60,
-      revalidate: 12 * 60 * 60,
+      stale: 12 * 60 * 60,
+      revalidate: 2 * 24 * 60 * 60,
       expire: 7 * 24 * 60 * 60,
     },
     'featured-articles': {
       stale: 60 * 60,
-      revalidate: 30 * 60,
+      revalidate: 2 * 60 * 60,
       expire: 4 * 60 * 60,
     },
     'breaking-news': {
       stale: 60,
-      revalidate: 30,
-      expire: 120,
+      revalidate: 5 * 60,
+      expire: 30 * 60,
     }
   },
   /* config options here */

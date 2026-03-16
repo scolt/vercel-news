@@ -1,3 +1,5 @@
+import {ArticlesWidgetFallback} from '@/features/articles';
+
 export default function Loading() {
   return (
     <div aria-label="Loading" role="status" className="flex flex-col w-full max-w-4xl m-auto p-4 gap-12">
@@ -28,6 +30,9 @@ export default function Loading() {
             <div className="h-4 w-3/4 rounded bg-gray-200" />
           </div>
         </div>
+      </div>
+      <div>
+        <ArticlesWidgetFallback />
       </div>
     </div>
   );

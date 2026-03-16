@@ -1,6 +1,6 @@
 import {components} from '@/libs/api';
 
-export type ArticleDTO = Omit<components['schemas']['Article'], 'id'> & {
+export type ArticleDTO = Omit<components['schemas']['Article'], 'excerpt'> & {
   isFullContent: boolean;
 }
 
@@ -9,6 +9,7 @@ export function getArticleDTO(article: components['schemas']['Article'], isFullC
   const promoSectionsLimit = Math.min(2, Math.floor(content.length / 2));
 
   return {
+    id: article.id,
     slug: article.slug,
     title: article.title,
     author: article.author,

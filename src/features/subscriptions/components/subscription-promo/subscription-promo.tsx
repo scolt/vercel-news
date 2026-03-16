@@ -1,6 +1,6 @@
 import {Suspense} from 'react';
 import {Typography} from '@/components/ui/typography';
-import {SubscriptionButton} from '@/features/subscriptions';
+import {SubscriptionButton, SubscriptionButtonFallback} from '@/features/subscriptions';
 
 export function SubscriptionPromo () {
   return <div className="relative">
@@ -12,7 +12,7 @@ export function SubscriptionPromo () {
       <Typography variant="body2">
         It&#39;s completely free — just tap the button below to get started.
       </Typography>
-      <Suspense fallback={<SubscriptionButton />}>
+      <Suspense fallback={<SubscriptionButtonFallback />}>
         <SubscriptionButton />
       </Suspense>
     </div>

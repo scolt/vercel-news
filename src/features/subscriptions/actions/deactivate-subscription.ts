@@ -31,6 +31,7 @@ export async function deactivateSubscription() {
 
   try {
     await deactivateSubscriptionApi(token);
+    cookieStore.delete(TOKEN_COOKIE_NAME);
     return {
       data: true,
       error: null

@@ -1,29 +1,22 @@
 import Image from 'next/image';
-import {notFound} from 'next/navigation';
-import {getProtectedArticle} from '@/features/articles/queries/get-protected-article';
-import BlocksView from '@/components/blocks-view/blocks-view';
 import {Typography} from '@/components/ui/typography';
-import {SubscriptionPromo} from '@/features/subscriptions';
 import {DisplayDate} from '@/components/display-date/display-date';
+import {BlocksView} from '@/components/blocks-view/blocks-view';
+import {SubscriptionPromo} from '@/features/subscriptions';
+import {ArticleDTO} from '@/features/articles/dto/article';
 
-export interface ArticleViewProps {
-  slug: string;
+export interface ArticleDetailsProps {
+  article: ArticleDTO;
 }
 
-export async function ArticleView({
-  slug,
-}: ArticleViewProps) {
-  const article = await getProtectedArticle(slug);
-
-  if (!article) {
-    notFound();
-  }
-
+export function ArticleDetails({
+  article
+}: ArticleDetailsProps) {
   return <div className="flex flex-col gap-4">
     <Typography variant="caption">{article.category} | {article.author?.name} | <DisplayDate date={article.publishedAt} /></Typography>
     <Typography variant="heading1" as="h1">{article.title}</Typography>
     {article.image && <Image
-      alt={article.title || slug}
+      alt={article.title || 'Article image'}
       src={article.image}
       blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mN8+R8AAtcB6oaHtZcAAAAASUVORK5CYII="
       height={550}

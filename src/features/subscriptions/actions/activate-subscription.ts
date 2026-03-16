@@ -3,6 +3,7 @@
 import {api} from '@/libs/api';
 import {cookies} from 'next/headers';
 import {TOKEN_COOKIE_NAME} from '@/features/subscriptions/constants';
+import { env } from '@/libs/utils/env';
 
 export async function activateSubscriptionApi(token?: string): Promise<string> {
   let currentToken = token;
@@ -39,7 +40,10 @@ export async function activateSubscription() {
 
   try {
     const validToken = await activateSubscriptionApi(token);
-    cookieStore.set(TOKEN_COOKIE_NAME, validToken);
+    cookieStore.set(TOKEN_COOKIE_NAME, validToken, {
+      httpOnly: true,
+      secure: env.production
+    });
 
     return {
       data: true,

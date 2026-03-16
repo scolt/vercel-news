@@ -3,8 +3,10 @@ import {getSubscriptionStatus, SUBSCRIPTION_STATUS} from '@/features/subscriptio
 import {getArticleDTO} from '@/features/articles/dto/article';
 
 export async function getProtectedArticle(slug: string) {
-  const article = await getArticle(slug);
-  const { data } = await getSubscriptionStatus();
+  const [article, { data }] = await Promise.all([
+    getArticle(slug),
+    getSubscriptionStatus(),
+  ]);
   
   if (!article) {
     return null;

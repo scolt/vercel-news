@@ -1,7 +1,8 @@
 import {Metadata} from 'next';
-import {ArticleView} from '@/features/articles/components/article-view/article-view';
-import {getArticle} from '@/features/articles/queries/get-article';
+import {Suspense} from 'react';
+import {notFound} from 'next/navigation';
 import {env} from '@/libs/utils/env';
+import {ArticleDetails, ArticlesWidgetFallback, getArticle, getProtectedArticle, TrendingArticlesWidget} from '@/features/articles';
 
 export async function generateMetadata({
  params
@@ -29,8 +30,16 @@ export default async function NewsPage({
   params
 }: PageProps<'/news/[slug]'>) {
   const { slug } = await params;
-
-  return <div className="flex flex-col w-full max-w-4xl m-auto p-4 gap-12">
-    <ArticleView slug={slug} />
+  const article = await getProtectedArticle(slug);
+  
+  if (!article) {
+    notFound();
+  }
+  
+  return <div className="flex flex-col w-full max-w-4xl m-auto p-4 gap-4">
+    <ArticleDetails article={article} />
+    <Suspense fallback={<ArticlesWidgetFallback />}>
+      <TrendingArticlesWidget excludeId={article.id}/>
+    </Suspense>
   </div>;
 }

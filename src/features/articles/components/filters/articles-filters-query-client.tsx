@@ -12,8 +12,8 @@ export interface ArticlesFiltersQueryClientProps {
 }
 
 export function ArticlesFiltersQueryClient({
-  currentQuery,
   isPending,
+  currentQuery,
   onFilterApply,
 }: ArticlesFiltersQueryClientProps) {
   const [value, setValue] = useState(currentQuery || '');

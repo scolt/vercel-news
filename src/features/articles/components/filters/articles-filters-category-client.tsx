@@ -44,6 +44,7 @@ export function ArticlesFiltersCategoryClient({
       
       return <Badge
         key={category.slug}
+        role="button"
         className="cursor-pointer text-md p-3 relative"
         onClick={() => !isPending && updateQueryParams(category.slug as string)}
         variant={variant}

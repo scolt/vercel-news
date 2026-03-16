@@ -38,7 +38,6 @@ cp .env.example .env
 |---|---|
 | `VERCEL_NEWS_API_URL` | Base URL of the Vercel Daily News API instance |
 | `VERCEL_NEWS_API_BYPASS_TOKEN` | Deployment protection bypass token (`x-vercel-protection-bypass` header) |
-| `SUBSCRIPTION_MODEL` | `api` to use the remote subscription API, or `local` for cookie-only local mode |
 
 Environment variables are validated at startup with Zod (see [`src/libs/utils/env.ts`](src/libs/utils/env.ts)). The app will throw immediately if any required variable is missing or malformed.
 

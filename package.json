@@ -8,7 +8,7 @@
     "build": "next build",
     "start": "next start",
     "start:clean": "next build && next start",
-    "lint": "eslint --fix"
+    "lint": "eslint"
   },
   "dependencies": {
     "@vercel/analytics": "^2.0.1",

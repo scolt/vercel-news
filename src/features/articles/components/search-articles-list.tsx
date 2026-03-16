@@ -23,7 +23,7 @@ export async function SearchArticlesList(props: SearchArticlesListProps) {
     return <div className="flex flex-col items-center justify-center w-full gap-2">
       <Typography variant="body2">There are no news for now.</Typography>
       <Link href="/search">
-        <Button variant="default">View all articles</Button>
+        <Button variant="default">View all news</Button>
       </Link>
     </div>;
   }

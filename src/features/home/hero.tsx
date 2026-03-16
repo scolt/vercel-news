@@ -23,7 +23,7 @@ export function Hero() {
     <footer className="flex gap-2">
       <Link href="/search">
         <Button variant="secondary" size="lg">
-          Browse articles
+          Browse news
           <ArrowRight/>
         </Button>
       </Link>

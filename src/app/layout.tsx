@@ -6,7 +6,7 @@ import { Inter, Source_Serif_4, Space_Mono } from 'next/font/google';
 import { Toaster } from '@/components/ui/sonner'
 import './globals.css';
 
-// ui?
+// ui
 const inter = Inter({
   variable: '--font-inter',
   subsets: ['latin'],

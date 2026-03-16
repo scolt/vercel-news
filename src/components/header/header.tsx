@@ -2,8 +2,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import {Typography} from '@/components/ui/typography';
 import {Suspense} from 'react';
-import {SubscriptionBadgeFallback} from '@/features/subscriptions/components/subscription-badge/subscription-badge-fallback';
-import {SubscriptionBadge} from '@/features/subscriptions/components/subscription-badge/subscription-badge';
+import {SubscriptionBadge, SubscriptionBadgeFallback} from '@/features/subscriptions';
 
 export function Header() {
   return <header className="flex items-center justify-center my-4 ">

@@ -40,7 +40,7 @@ export const typographyPropsByLevel: Record<2 | 3, TypographyProps> = {
   }
 }
 
-export default function  BlocksView({ blocks }: BlocksViewProps) {
+export function  BlocksView({ blocks }: BlocksViewProps) {
   if (!blocks) {
     return null;
   }
@@ -67,21 +67,21 @@ export default function  BlocksView({ blocks }: BlocksViewProps) {
       }
 
       if (block.type === 'ordered-list') {
-        return <ul key={`${block.type}-${index}`} className="flex flex-col gap-1 list-disc ml-4">
+        return <ol key={`${block.type}-${index}`} className="flex flex-col gap-1 list-decimal ml-4">
           {block.items.map((listItem) => <li key={listItem}>
             <Markdown>{listItem}</Markdown>
             </li>)}
-        </ul>;
+        </ol>;
       }
 
       if (block.type === 'unordered-list') {
-        return <ol key={`${block.type}-${index}`} className="flex flex-col gap-1 list-decimal ml-4">
+        return <ul key={`${block.type}-${index}`} className="flex flex-col gap-1 list-disc ml-4">
           {block.items.map((listItem) =>
               <li key={listItem}>
                 <Markdown>{listItem}</Markdown>
               </li>
             )}
-        </ol>;
+        </ul>;
       }
 
       if (block.type === 'image' && block.src) {

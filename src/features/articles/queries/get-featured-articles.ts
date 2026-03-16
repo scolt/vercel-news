@@ -1,5 +1,3 @@
-'use cache';
-
 import {api} from '@/libs/api';
 import {cacheLife, cacheTag} from 'next/cache';
 

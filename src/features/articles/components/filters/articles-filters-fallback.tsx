@@ -27,7 +27,7 @@ export function ArticlesFiltersQueryFallback() {
 }
 
 export function ArticlesFiltersFallback() {
-  return <div className="flex flex-col items-center justify-center w-full gap-8">
+  return <div className="flex flex-col items-center justify-center w-full gap-8" role="status" aria-label="Loading filters">
     <ArticlesFiltersCategoryFallback />
     <ArticlesFiltersQueryFallback />
   </div>;
