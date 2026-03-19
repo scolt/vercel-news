@@ -1,6 +1,10 @@
 import {api} from '@/libs/api';
+import { cacheLife, cacheTag } from 'next/cache';
 
 export async function getTrendingArticlesApi(excludeId?: string) {
+  'use cache';
+  cacheLife('featured-articles');
+  cacheTag('trending-articles');
   const response = await api.GET('/articles/trending', {
     params: {
       query: {

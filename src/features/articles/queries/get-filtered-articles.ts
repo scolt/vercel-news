@@ -1,5 +1,6 @@
 // cache is not relevant for this query
-import {api} from '@/libs/api';
+import {api, components} from '@/libs/api';
+import {cacheLife, cacheTag} from 'next/cache';
 
 export interface GetFilteredArticlesParams {
   category?: string;
@@ -20,12 +21,32 @@ export async function getFilteredArticlesApi(params: GetFilteredArticlesParams) 
   return res.data?.data;
 }
 
+export async function getFilteredArticlesWithCache(params: GetFilteredArticlesParams) {
+  'use cache';
+  cacheLife('filtered-articles');
+  cacheTag(`filtered-articles-${params.category || 'all'}`);
+
+  return getFilteredArticlesApi(params);
+}
+
 export async function getFilteredArticles(params: GetFilteredArticlesParams) {
   try {
-    const data = await getFilteredArticlesApi(params);
+    let result: components['schemas']['Article'][] | undefined;
+    
+    const isAll = !params.category && !params.query;
+    const isCategoryOnly = !!params.category && !params.query;
+    
+    // Only use cache when fetching all articles or filtering by category without search query,
+    // otherwise fetch directly from API to ensure up-to-date results
+    // Categories are limited, queries do not.
+    if (isAll || isCategoryOnly) {
+      result = await getFilteredArticlesWithCache(params);
+    } else {
+      result = await getFilteredArticlesApi(params);
+    }
 
     return {
-      data: data || [],
+      data: result || [],
       error: null,
     };
   } catch (error) {

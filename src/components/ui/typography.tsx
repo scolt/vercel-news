@@ -1,7 +1,7 @@
 import * as React from 'react'
 import {cva, type VariantProps} from 'class-variance-authority'
 
-import {cn} from '@/libs/utils'
+import {cn} from '@/libs/utils/styles'
 
 const typographyVariants = cva(
   '',
@@ -11,7 +11,7 @@ const typographyVariants = cva(
         heading1: 'font-mono text-4xl font-extrabold',
         heading2: 'font-mono text-3xl font-semibold',
         heading3: 'font-mono text-2xl font-semibold',
-        body1: 'font-serif',
+        body1: 'font-inter',
         body2: 'font-inter text-md',
         strong2: 'font-inter text-md font-bold',
         caption: 'font-mono uppercase font-bold text-gray-400 text-sm',

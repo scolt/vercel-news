@@ -19,12 +19,6 @@ const spaceMono = Space_Mono({
     subsets: ['latin'],
 });
 
-// for body
-const sourceSerif = Source_Serif_4({
-  variable: '--font-source-serif',
-  subsets: ['latin'],
-});
-
 export const metadata: Metadata = {
   title: {
     template: '%s | Vercel Daily News',
@@ -41,7 +35,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${inter.variable} ${sourceSerif.variable} ${spaceMono.variable} antialiased`}
+        className={`${inter.variable} ${spaceMono.variable} antialiased`}
       >
         <Header />
         {children}

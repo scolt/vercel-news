@@ -18,6 +18,7 @@ export function ArticleDetails({
     {article.image && <Image
       alt={article.title || 'Article image'}
       src={article.image}
+      placeholder="blur"
       blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mN8+R8AAtcB6oaHtZcAAAAASUVORK5CYII="
       height={550}
       width={1024}

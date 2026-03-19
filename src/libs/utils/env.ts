@@ -1,3 +1,4 @@
+// this file is only process server-side environment variables
 import 'server-only';
 import z from 'zod';
 

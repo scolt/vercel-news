@@ -13,6 +13,9 @@ const nextConfig: NextConfig = {
     'article': {
       expire: 7 * 24 * 60 * 60,
     },
+    'filtered-articles': {
+      expire: 60 * 60,
+    },
     'categories': {
       stale: 12 * 60 * 60,
       revalidate: 2 * 24 * 60 * 60,

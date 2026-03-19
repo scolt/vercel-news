@@ -11,9 +11,10 @@ export interface ArticlePreviewProps {
 }
 
 export function ArticlePreview({article}: ArticlePreviewProps) {
-  return <Link href={`/news/${article.slug}`} className="flex w-full md:w-[calc(33%-0.66rem)] sm:w-[calc(50%-0.5rem)]">
+  return <Link href={`/news/${article.slug}`} className="flex w-full md:w-[calc(33%-0.66rem)] sm:w-[calc(50%-0.5rem)]" prefetch={false}>
     <Card className="w-full">
       {article.image && <Image
+        preload
         className="relative z-20 aspect-video w-full object-cover"
         src={article.image}
         alt={`${article.title}`}
