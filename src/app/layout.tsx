@@ -5,6 +5,7 @@ import { Header } from '@/components/header';
 import { Inter, Source_Serif_4, Space_Mono } from 'next/font/google';
 import { Toaster } from '@/components/ui/sonner'
 import './globals.css';
+import { Footer } from '@/components/footer';
 
 // ui
 const inter = Inter({
@@ -39,6 +40,7 @@ export default function RootLayout({
       >
         <Header />
         {children}
+        <Footer />
         <Toaster />
         <SpeedInsights />
         <Analytics />

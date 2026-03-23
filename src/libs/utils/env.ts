@@ -7,6 +7,7 @@ const envSchema = z.object({
   apiUrl: z.url(),
   apiBypassToken: z.string(),
   production: z.boolean(),
+  serverSecret: z.string(),
 });
 
 export const env = envSchema.parse({
@@ -14,4 +15,5 @@ export const env = envSchema.parse({
   apiUrl: process.env.VERCEL_NEWS_API_URL,
   apiBypassToken: process.env.VERCEL_NEWS_API_BYPASS_TOKEN,
   production: process.env.PRODUCTION === 'true',
+  serverSecret: process.env.SERVER_SECRET,
 });

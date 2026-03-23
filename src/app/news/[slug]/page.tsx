@@ -22,6 +22,7 @@ export async function generateMetadata({
       description: article.excerpt,
       authors: article.author?.name,
       url: `${env.appUrl}/news/${slug}`,
+      images: article.image,
     },
   }
 }

@@ -20,6 +20,7 @@ export function ArticlePreview({article}: ArticlePreviewProps) {
         alt={`${article.title}`}
         width={400}
         height={225}
+        sizes="(max-width: 640px) 100vw, (max-width: 768px) 50vw, 33vw"
       />}
       <CardHeader>
         <div className="flex justify-between">

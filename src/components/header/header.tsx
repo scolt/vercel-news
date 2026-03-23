@@ -10,6 +10,7 @@ export function Header() {
         <Image
           src="/vercel.svg"
           alt="Vercel Daily News"
+          unoptimized
           width={24}
           height={24}
         />

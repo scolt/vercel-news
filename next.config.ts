@@ -11,7 +11,8 @@ const nextConfig: NextConfig = {
   cacheComponents: true,
   cacheLife: {
     'article': {
-      expire: 7 * 24 * 60 * 60,
+      revalidate: 7 * 24 * 60 * 60,
+      expire: 30 * 24 * 60 * 60,
     },
     'filtered-articles': {
       expire: 60 * 60,
@@ -22,14 +23,13 @@ const nextConfig: NextConfig = {
       expire: 7 * 24 * 60 * 60,
     },
     'featured-articles': {
-      stale: 60 * 60,
       revalidate: 2 * 60 * 60,
       expire: 4 * 60 * 60,
     },
     'breaking-news': {
       stale: 60,
-      revalidate: 5 * 60,
-      expire: 30 * 60,
+      revalidate: 2 * 60,
+      expire: 4 * 60,
     }
   },
   /* config options here */
