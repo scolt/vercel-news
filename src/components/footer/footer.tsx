@@ -1,6 +1,6 @@
 import { cacheLife } from "next/cache";
 
-export function Footer() {
+export async function Footer() {
   'use cache';
   cacheLife({ expire: 24 * 60 * 60 });
 
