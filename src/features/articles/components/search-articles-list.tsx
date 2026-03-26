@@ -20,8 +20,8 @@ export async function SearchArticlesList(props: SearchArticlesListProps) {
   }
 
   if (!data || data.length === 0) {
-    return <div className="flex flex-col items-center justify-center w-full gap-2">
-      <Typography variant="body2">There are no news for now.</Typography>
+    return <div className="flex flex-col items-center justify-center w-full gap-5">
+      <Typography variant="body2">There are no news for now for your search criteria.</Typography>
       <Link href="/search">
         <Button variant="default">View all news</Button>
       </Link>

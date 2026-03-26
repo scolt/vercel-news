@@ -3,7 +3,9 @@ export * from './components/search-articles-list';
 export * from './components/article-preview/article-preview';
 export * from './components/article-preview/article-preview-fallback';
 
-export * from '@/features/articles/components/article-details/article-details';
+export * from './components/article-details/article-details';
+export * from './components/article-content/article-content';
+export * from './components/article-content/article-content-fallback';
 
 export * from './components/articles-list/articles-list';
 export * from './components/articles-list/articles-list-fallback';
@@ -30,7 +32,8 @@ export * from './queries/get-articles-categories';
 export * from './queries/get-breaking-news';
 export * from './queries/get-featured-articles';
 export * from './queries/get-filtered-articles';
-export * from './queries/get-protected-article';
+export * from './queries/get-protected-article-content';
+export * from './queries/get-article-info';
 export * from './queries/get-trending-articles';
 
 export * from './dto/article';

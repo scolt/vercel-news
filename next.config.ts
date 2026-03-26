@@ -23,13 +23,13 @@ const nextConfig: NextConfig = {
       expire: 7 * 24 * 60 * 60,
     },
     'featured-articles': {
-      revalidate: 2 * 60 * 60,
-      expire: 4 * 60 * 60,
+      revalidate: 12 * 60 * 60,
+      expire: 24 * 60 * 60,
     },
     'breaking-news': {
-      stale: 60,
-      revalidate: 2 * 60,
-      expire: 4 * 60,
+      stale: 3 * 60,
+      revalidate: 5 * 60,
+      expire: 1 * 60 * 60,
     }
   },
   /* config options here */

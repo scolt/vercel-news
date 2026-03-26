@@ -20,13 +20,12 @@ export function ArticlesFiltersClient({
   const router = useRouter();
   const [isPending, startTransition] = useTransition();
   
-  const onFilterApply: FilterApplyHandler = (key, value, callback) => {
+  const onFilterApply: FilterApplyHandler = (key, value) => {
     const query = updateCurrentQueryParam(key, value, params);
     const newUrl = `${pathname}?${query}`;
     
     startTransition(() => {
       router.replace(newUrl);
-      callback?.();
     })
   }
   

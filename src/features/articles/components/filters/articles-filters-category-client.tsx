@@ -6,9 +6,6 @@ import {Badge} from '@/components/ui/badge';
 import {Loader2} from 'lucide-react';
 import {FilterApplyHandler} from './types';
 
-
-
-
 export interface ArticlesFiltersCategoryClientProps {
   categories: components['schemas']['Category'][];
   activeCategory: string | null;

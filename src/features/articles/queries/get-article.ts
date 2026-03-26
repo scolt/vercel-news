@@ -1,4 +1,4 @@
-import {api} from '@/libs/api';
+import {api, components} from '@/libs/api';
 import {cacheLife, cacheTag} from 'next/cache';
 
 export async function getArticleApi (slug: string) {
@@ -21,7 +21,7 @@ export async function getArticleApi (slug: string) {
   return data.data;
 }
 
-export async function getArticle(slug: string) {
+export async function getArticle(slug: string): Promise<components['schemas']['Article'] | null> {
   try {
     return await getArticleApi(slug);
   } catch(error) {

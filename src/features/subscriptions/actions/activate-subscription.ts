@@ -30,7 +30,6 @@ export async function activateSubscriptionApi(token?: string): Promise<string> {
     throw new Error(`${error.error?.code}: ${error.error?.message}`);
   }
 
-
   return currentToken as string;
 }
 

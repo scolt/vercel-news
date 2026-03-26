@@ -5,17 +5,20 @@ import {components} from '@/libs/api';
 import {Card, CardDescription, CardHeader, CardTitle} from '@/components/ui/card';
 import {Typography} from '@/components/ui/typography';
 import {DisplayDate} from '@/components/display-date/display-date';
+import { BLUR_PIXEL } from '@/constants';
 
 export interface ArticlePreviewProps {
   article: components['schemas']['Article']
 }
 
 export function ArticlePreview({article}: ArticlePreviewProps) {
-  return <Link href={`/news/${article.slug}`} className="flex w-full md:w-[calc(33%-0.66rem)] sm:w-[calc(50%-0.5rem)]" prefetch={false}>
+  return <Link href={`/news/${article.slug}`} className="flex w-full]" prefetch={false}>
     <Card className="w-full">
       {article.image && <Image
         preload
-        className="relative z-20 aspect-video w-full object-cover"
+        className="relative aspect-video w-full object-cover"
+        placeholder="blur"
+        blurDataURL={BLUR_PIXEL}
         src={article.image}
         alt={`${article.title}`}
         width={400}

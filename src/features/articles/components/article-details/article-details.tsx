@@ -1,12 +1,11 @@
 import Image from 'next/image';
 import {Typography} from '@/components/ui/typography';
 import {DisplayDate} from '@/components/display-date/display-date';
-import {BlocksView} from '@/components/blocks-view/blocks-view';
-import {SubscriptionPromo} from '@/features/subscriptions';
-import {ArticleDTO} from '@/features/articles/dto/article';
+import { ArticleInfoDTO }  from '@/features/articles/dto/article';
+import { BLUR_PIXEL } from '@/constants';
 
 export interface ArticleDetailsProps {
-  article: ArticleDTO;
+  article: ArticleInfoDTO;
 }
 
 export function ArticleDetails({
@@ -18,12 +17,10 @@ export function ArticleDetails({
     {article.image && <Image
       alt={article.title || 'Article image'}
       src={article.image}
+      placeholder="blur"
+      blurDataURL={BLUR_PIXEL}
       height={550}
       width={1024}
     /> }
-    <div className="mt-8">
-      <BlocksView blocks={article.content} />
-    </div>
-    {!article.isFullContent ? <SubscriptionPromo /> : null}
   </div>;
 }
