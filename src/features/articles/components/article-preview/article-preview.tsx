@@ -12,7 +12,7 @@ export interface ArticlePreviewProps {
 }
 
 export function ArticlePreview({article}: ArticlePreviewProps) {
-  return <Link href={`/news/${article.slug}`} className="flex w-full]" prefetch={false}>
+  return <Link href={`/news/${article.slug}`} className="flex w-full" prefetch={false}>
     <Card className="w-full">
       {article.image && <Image
         preload

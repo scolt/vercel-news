@@ -1,23 +1,27 @@
 import {api} from '@/libs/api';
 import {cacheLife, cacheTag} from 'next/cache';
 
-export async function getFeaturedArticles() {
+export async function getFeaturedArticlesApi () {
   'use cache';
+  cacheLife('featured-articles');
   cacheTag('featured-articles');
 
-  try {
-    const res = await api.GET('/articles', {
-      params: {
-        query: {
-          featured: 'true',
-          limit: 6,
-        }
+  const res = await api.GET('/articles', {
+    params: {
+      query: {
+        featured: 'true',
+        limit: 6,
       }
-    });
+    }
+  });
 
-    const data = res.data?.data;
+  return res.data?.data || [];
+}
 
-    cacheLife('featured-articles');
+export async function getFeaturedArticles() {
+  try {
+    const data = await getFeaturedArticlesApi();
+
     return {
       data: data || null,
       error: null,
@@ -25,7 +29,6 @@ export async function getFeaturedArticles() {
   } catch (error) {
     console.error('[Featured articles]', error);
 
-    cacheLife({ expire: 0 });
     return {
       data: null,
       error: 'An error occurred while retrieving featured articles',

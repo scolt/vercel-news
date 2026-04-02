@@ -26,6 +26,10 @@ const nextConfig: NextConfig = {
       revalidate: 12 * 60 * 60,
       expire: 24 * 60 * 60,
     },
+    'trending-articles': {
+      revalidate: 60 * 60,
+      expire: 2 * 60 * 60,
+    },
     'breaking-news': {
       stale: 3 * 60,
       revalidate: 5 * 60,

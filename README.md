@@ -4,14 +4,19 @@ A modern news publication frontend built with **Next.js 16** and the **App Route
 
 ## Tech Stack
 
-- **Next.js 16** (App Router, `'use cache'`, `cacheLife`, React Compiler, `cacheComponents`)
+- **Next.js 16** (App Router, `'use cache'`, `cacheLife`, `cacheTag`, React Compiler, `cacheComponents`)
 - **React 19** with Server Components, Server Actions, and Suspense streaming
 - **Tailwind CSS v4** with `@tailwindcss/postcss`
-- **shadcn/ui** (Radix Nova style)
+- **shadcn/ui** (Radix Nova style) with **Radix UI** primitives
 - **openapi-fetch** + **openapi-typescript** for type-safe API consumption
-- **Zod 4** for validation
+- **Zod 4** for runtime validation
+- **react-markdown** for rendering Markdown content blocks
+- **class-variance-authority** for variant-driven component styling
 - **dayjs** for date formatting
 - **Lucide React** for icons
+- **sonner** for toast notifications
+- **@vercel/analytics** + **@vercel/speed-insights** for production monitoring
+- **@vercel/og** for dynamic Open Graph image generation
 
 ## Getting Started
 
@@ -36,8 +41,11 @@ cp .env.example .env
 
 | Variable | Description |
 |---|---|
+| `BASE_APP_URL` | Public URL of the deployed application (used for metadata and OG images) |
 | `VERCEL_NEWS_API_URL` | Base URL of the Vercel Daily News API instance |
 | `VERCEL_NEWS_API_BYPASS_TOKEN` | Deployment protection bypass token (`x-vercel-protection-bypass` header) |
+| `PRODUCTION` | Set to `true` for production environment |
+| `SERVER_SECRET` | Secret key for authenticating incoming webhook requests |
 
 Environment variables are validated at startup with Zod (see [`src/libs/utils/env.ts`](src/libs/utils/env.ts)). The app will throw immediately if any required variable is missing or malformed.
 
@@ -47,7 +55,7 @@ Environment variables are validated at startup with Zod (see [`src/libs/utils/en
 pnpm dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) in your browser.
+Open [http://localhost:3001](http://localhost:3001) in your browser.
 
 ### Build & Production
 
@@ -77,47 +85,71 @@ pnpm gen:openapi
 ```
 src/
 ├── app/                          # Next.js App Router (routes, layouts, global styles)
+│   ├── api/webhooks/cache/       # Webhook endpoint for on-demand cache revalidation
+│   ├── news/[slug]/              # Dynamic article pages with error/loading/not-found boundaries
+│   ├── search/                   # Search page with filtered article listing
+│   ├── opengraph-image.tsx       # Dynamic OG image generation for the root route
+│   ├── layout.tsx                # Root layout with fonts, metadata, analytics
+│   ├── page.tsx                  # Home page
+│   ├── error.tsx                 # Root error boundary
+│   ├── loading.tsx               # Root loading state
+│   └── globals.css               # Tailwind v4 theme and global styles
 ├── components/                   # Shared, reusable UI components
 │   ├── ui/                       # Design system primitives (shadcn/ui)
-│   └── header/                   # Application header (layout component)
+│   ├── header/                   # Application header with navigation
+│   ├── footer/                   # Application footer (cached server component)
+│   ├── blocks-view/              # Polymorphic content block renderer (paragraphs, images, lists, etc.)
+│   └── display-date/             # Date formatting component
 ├── features/                     # Feature modules (domain-driven)
+│   ├── home/                     # Home page feature (Hero section)
 │   ├── articles/                 # Articles feature
-│   │   ├── components/           # UI components for articles
-│   │   └── queries/              # Server-side data fetching functions
+│   │   ├── components/           # UI components (previews, lists, filters, widgets, details)
+│   │   ├── queries/              # Server-side data fetching functions
+│   │   └── dto/                  # Data transfer objects and mapping functions
 │   └── subscriptions/            # Subscriptions feature
-│       ├── actions/              # Server Actions (mutations)
-│       ├── components/           # UI components for subscriptions
+│       ├── actions/              # Server Actions (activate, deactivate)
+│       ├── components/           # UI components (badge, button, promo)
 │       ├── queries/              # Server-side data fetching functions
 │       ├── constants.ts          # Shared constants (cookie names)
 │       └── types.ts              # Enums and type definitions
-└── libs/                         # Shared libraries and utilities
-    ├── api/                      # API client, OpenAPI spec, and generated types
-    └── utils/                    # Utility functions (cn, env validation)
+├── libs/                         # Shared libraries and utilities
+│   ├── api/                      # API client, OpenAPI spec, and generated types
+│   └── utils/                    # Utility functions (cn, env, query-params)
+└── constants.ts                  # App-wide constants (e.g. blur placeholder pixel)
 ```
 
 ### `src/app/` — Routes & Layout
 
-The Next.js App Router directory. Contains the root layout, global CSS, page routes, and route-level error/loading boundaries.
+The Next.js App Router directory. Contains the root layout, global CSS, page routes, route-level error/loading/not-found boundaries, a dynamic OG image generator, and a webhook API route for cache revalidation.
 
 ### `src/components/` — Shared Components
 
 Reusable components that are **not tied to a specific feature domain**.
 
-#### `ui/` — Design System Primitives
-
-Built with [shadcn/ui](https://ui.shadcn.com/) (Radix Nova style). These are the foundational building blocks used across all features:
+- **`ui/`** — Design system primitives built with [shadcn/ui](https://ui.shadcn.com/) (Radix Nova style). Foundational building blocks used across all features.
+- **`header/`** — Application header with logo, navigation (client component for active-link detection), and subscription badge.
+- **`footer/`** — Cached server component for the site footer.
+- **`blocks-view/`** — Polymorphic content block renderer that maps API content blocks (paragraphs, headings, blockquotes, lists, images) to React components with Markdown support.
+- **`display-date/`** — Reusable date formatting component using dayjs.
 
 ### `src/features/` — Feature Modules
 
-Domain-driven feature slices. Each feature encapsulates its own **components**, **queries** (data fetching), **actions** (mutations), **types**, and **constants**. Features are self-contained — they import from `libs/` and `components/` but never from each other.
+Domain-driven feature slices. Each feature encapsulates its own **components**, **queries** (data fetching), **actions** (mutations), **DTOs**, **types**, and **constants**. Features are self-contained — they import from `libs/` and `components/` but never from each other.
+
+#### `home/`
+
+Contains the Hero section displayed on the home page.
 
 #### `articles/`
 
-Handles fetching and displaying news articles.
+Handles fetching and displaying news articles. Includes:
+- **Components**: Article previews, detail views, content rendering, search filters (category & query), featured/trending/breaking-news widgets, and skeleton fallbacks for every async boundary.
+- **Queries**: Cached server-side data fetching with granular `cacheLife` and `cacheTag` per data type.
+- **DTOs**: Data transfer objects (`ArticleInfoDTO`, `ArticleContentDTO`) with mapping functions to shape API responses for specific UI needs.
 
 #### `subscriptions/`
 
-Manages the anonymous article subscription lifecycle: create, activate, check status, and deactivate.
+Manages the anonymous article subscription lifecycle via Server Actions: activate, check status, and deactivate. Uses cookies for session-based subscription tracking.
 
 ### `src/libs/` — Shared Libraries
 
@@ -134,9 +166,9 @@ The type-safe API layer. See the [API Concept](#api-concept--type-safe-openapi-i
 
 #### `utils/`
 
-- **`env.ts`** — Zod-validated environment variables, parsed at module load time.
+- **`env.ts`** — Zod-validated environment variables, parsed at module load time. Uses `server-only` to prevent client-side leakage.
 - **`styles.ts`** — `cn()` utility combining `clsx` and `tailwind-merge` for conditional class composition.
-- **`index.ts`** — Barrel export.
+- **`query-params.ts`** — Helper for immutably updating URL search parameters.
 
 ---
 
@@ -158,11 +190,9 @@ This file is auto-generated and should never be edited by hand. Regenerate it wh
 
 #### Runtime Client (`openapi-fetch`)
 
-The [`openapi-fetch`](https://github.com/openapi-ts/openapi-typescript/tree/main/packages/openapi-fetch) library creates a fetch client that is parameterized by the generated `paths` type:
+The [`openapi-fetch`](https://github.com/openapi-ts/openapi-typescript/tree/main/packages/openapi-fetch) library creates a fetch client that is parameterized by the generated `paths` type. Invalid paths, misspelled parameters, or incorrect types are caught at compile time — not at runtime.
 
-Invalid paths, misspelled parameters, or incorrect types are caught at compile time — not at runtime.
-
-### Using Schema Types in Components
+#### Using Schema Types in Components
 
 You can import component schemas directly from `@/libs/api` for use in props:
 
@@ -180,8 +210,39 @@ This keeps component interfaces synchronized with the API contract automatically
 
 ## Caching Strategy
 
-The app leverages Next.js 16's `'use cache'` directive with custom cache profiles defined in `next.config.ts`:
-The `cacheComponents: true` experimental flag is enabled for component-level caching.
+The app leverages Next.js 16's `'use cache'` directive with custom cache profiles defined in `next.config.ts`.
+
+| Profile | Revalidate | Expire | Stale | Use Case |
+|---|---|---|---|---|
+| `article` | 7 days | 30 days | — | Individual article pages |
+| `featured-articles` | 12 hours | 24 hours | — | Featured articles on the home page |
+| `trending-articles` | 1 hour | 2 hours | — | Trending articles widget |
+| `breaking-news` | 5 minutes | 1 hour | 3 minutes | Breaking news banner |
+| `categories` | 2 days | 7 days | 12 hours | Article category filters |
+| `filtered-articles` | — | 1 hour | — | Search results with category/query filters |
+
+Additionally:
+
+- **`cacheTag`** is used on every cached query to enable targeted on-demand revalidation via the webhook API (`/api/webhooks/cache`).
+- **`cacheComponents: true`** is enabled in `next.config.ts` for component-level caching.
+- **Error responses** are cached with `{ expire: 0 }` to prevent caching failures.
+- **Free-text search queries** bypass the cache entirely to ensure fresh results.
+
+---
+
+## Webhook — On-Demand Cache Revalidation
+
+The app exposes a `POST /api/webhooks/cache` endpoint that allows the backend API to trigger on-demand cache revalidation by tag.
+
+**Request:**
+
+```json
+{
+  "cacheKey": "featured-articles"
+}
+```
+
+**Authentication:** The request must include a valid `x-news-api-webhook-secret` header matching the `SERVER_SECRET` environment variable.
 
 ---
 
@@ -189,8 +250,9 @@ The `cacheComponents: true` experimental flag is enabled for component-level cac
 
 | Script | Description |
 |---|---|
-| `pnpm dev` | Start development server with hot reload |
+| `pnpm dev` | Start development server on port 3001 |
 | `pnpm build` | Create optimized production build |
 | `pnpm start` | Start production server |
-| `pnpm lint` | Run ESLint with auto-fix |
+| `pnpm start:clean` | Build and start production server in one command |
+| `pnpm lint` | Run ESLint |
 | `pnpm gen:openapi` | Regenerate TypeScript types from the OpenAPI spec |

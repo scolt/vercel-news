@@ -24,6 +24,8 @@ export function ArticlesFiltersQueryClient({
   }
   return <form onSubmit={submitSearch} className="flex w-full items-center justify-center gap-4">
     <Input
+      aria-label="Search for news"
+      placeholder="Search news"
       className="max-w-sm"
       value={value}
       onChange={(e) => setValue(e.target.value)}

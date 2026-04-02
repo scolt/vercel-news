@@ -21,7 +21,7 @@ export async function generateMetadata({
   const article = await getArticle(slug);
   
   if (!article) {
-    return { title: 'Not Found' };
+    notFound();
   }
   
   return {

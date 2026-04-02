@@ -85,11 +85,15 @@ export function  BlocksView({ blocks }: BlocksViewProps) {
       }
 
       if (block.type === 'image' && block.src) {
+        // assume that all embedded images are full width images
         return <Image
           key={`${block.type}-${index}`}
           src={block.src}
           alt={block.alt}
           title={block.caption}
+          width={1024}
+          height={576}
+          className="w-full h-auto"
         />;
       }
     })}
