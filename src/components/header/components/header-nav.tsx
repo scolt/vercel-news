@@ -1,9 +1,9 @@
 'use client';
 
-import Link from "next/link";
-import { Typography } from "@/components/ui/typography";
+import Link from 'next/link';
+import { Typography } from '@/components/ui/typography';
 import { cva } from 'class-variance-authority'
-import { usePathname } from "next/navigation";
+import { usePathname } from 'next/navigation';
 
 const linkVariants = cva(
   'text-gray-700 hover:text-gray-900',
@@ -36,7 +36,6 @@ export function HeaderNav() {
               key={item.href}
               href={item.href}
               prefetch={false}
-        
             >
               <Typography as="span" variant="body2" className={linkVariants({ variant: isActive ? 'active' : 'default' })}>
                 {item.label}

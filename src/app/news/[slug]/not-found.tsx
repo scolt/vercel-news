@@ -11,7 +11,7 @@ export default function NotFound() {
         <Typography variant="heading2">Ohh, it is not found</Typography>
         <Typography variant="body1">We are sorry but the article you are looking for does not exist. It might have been removed or you might have followed an old link.</Typography>
         <div className="flex gap-4">
-          <Link href="/" >
+          <Link href="/">
             <Button>
               Go back to Home
             </Button>

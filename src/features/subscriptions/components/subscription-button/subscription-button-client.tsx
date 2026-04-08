@@ -19,7 +19,7 @@ export function SubscriptionButtonClient ({ subscriptionStatus }: SubscriptionBu
 
   const toggleSubscription = () => {
     startTransition(async () => {
-      const operation = subscriptionStatus === 'active' ? deactivateSubscription : activateSubscription;
+      const operation = subscriptionStatus === SUBSCRIPTION_STATUS.ACTIVE ? deactivateSubscription : activateSubscription;
       const res = await operation();
 
       if (res.error) {
@@ -34,6 +34,6 @@ export function SubscriptionButtonClient ({ subscriptionStatus }: SubscriptionBu
 
   return <Button size="lg" onClick={toggleSubscription} disabled={isPending}>
     {isPending && <Loader2 className="animate-spin" />}
-    {subscriptionStatus === 'active' ? 'Unsubscribe' : 'Subscribe'}
+    {subscriptionStatus === SUBSCRIPTION_STATUS.ACTIVE ? 'Unsubscribe' : 'Subscribe'}
   </Button>;
 }

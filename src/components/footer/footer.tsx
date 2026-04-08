@@ -1,4 +1,4 @@
-import { cacheLife } from "next/cache";
+import { cacheLife } from 'next/cache';
 
 export async function Footer() {
   'use cache';

@@ -7,7 +7,6 @@ export default function Home() {
   return (
     <div>
       <Suspense fallback={<BreakingNewsWidgetFallback/>}>
-        {/* if breaking news is fail we can just do not display it, call for the page error boundary is not needed */}
         <BreakingNewsWidget />
       </Suspense>
       <main className="flex flex-col w-full max-w-4xl m-auto p-4 pt-10 gap-8">

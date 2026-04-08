@@ -1,6 +1,6 @@
-import { BlocksView } from "@/components/blocks-view/blocks-view";
-import { SubscriptionPromo } from "@/features/subscriptions/components/subscription-promo/subscription-promo";
-import { getProtectedArticleContent } from "../../queries/get-protected-article-content";
+import { BlocksView } from '@/components/blocks-view/blocks-view';
+import { SubscriptionPromo } from '@/features/subscriptions/components/subscription-promo/subscription-promo';
+import { getProtectedArticleContent } from '../../queries/get-protected-article-content';
 
 export interface ArticleContentProps {
     slug: string;
@@ -13,7 +13,7 @@ export async function ArticleContent({ slug }: ArticleContentProps) {
     return null;
   }
     
-  return <div className="mt-8">
+  return <div className="flex flex-col mt-8">
     <BlocksView blocks={data.content} />
     {data.contentType === 'promo' ? <SubscriptionPromo /> : null}
   </div>;

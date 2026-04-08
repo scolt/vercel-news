@@ -2,7 +2,7 @@ import type { NextConfig } from 'next';
 
 const nextConfig: NextConfig = {
   images: {
-    qualities: [50, 75],
+    deviceSizes: [640, 768, 1024, 1280, 1536],
     remotePatterns: [{
       protocol: 'https',
       hostname: '**.public.blob.vercel-storage.com'
@@ -36,7 +36,6 @@ const nextConfig: NextConfig = {
       expire: 1 * 60 * 60,
     }
   },
-  /* config options here */
   reactCompiler: true,
 };
 

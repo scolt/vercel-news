@@ -1,6 +1,7 @@
 // cache is not relevant for this query
 import {api, components} from '@/libs/api';
 import {cacheLife, cacheTag} from 'next/cache';
+import {ARTICLES_PER_PAGE_RESULT} from '@/features/articles/constants';
 
 export interface GetFilteredArticlesParams {
   category?: string;
@@ -13,7 +14,7 @@ export async function getFilteredArticlesApi(params: GetFilteredArticlesParams) 
       query: {
         category: params.category,
         search: params.query,
-        limit: 12,
+        limit: ARTICLES_PER_PAGE_RESULT,
       }
     }
   });

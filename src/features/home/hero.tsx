@@ -10,7 +10,7 @@ import { SubscriptionButtonFallback } from '@/features/subscriptions/components/
 
 export function Hero() {
   return <section className="flex flex-col gap-6">
-    <header className="">
+    <header>
       <Typography as="h2" variant="caption">
         The Vercel Daily News
       </Typography>

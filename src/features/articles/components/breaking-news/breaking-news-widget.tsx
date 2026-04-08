@@ -12,7 +12,7 @@ export async function BreakingNewsWidget() {
     return null;
   }
 
-  return <Link aria-label="Go to the last breaking news" prefetch={false} href={`/news/${data.slug}`} className="cursor-pointer flex bg-gray-900 justify-center py-2">
+  return <Link aria-label="Go to the last breaking news" href={`/news/${data.slug}`} className="cursor-pointer flex bg-gray-900 justify-center py-2">
     <div className="flex max-w-4xl w-full px-4 items-center justify-between gap-2">
       <div className="flex gap-2 items-center overflow-hidden text-ellipsis">
         <Badge variant="secondary">BREAKING</Badge>
