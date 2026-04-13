@@ -1,4 +1,5 @@
 import {ImageResponse} from 'next/og'
+import {env} from '@/libs/utils/env';
 
 export const size = {width: 1200, height: 628};
 
@@ -12,7 +13,7 @@ export default async function OpengraphArticleImage() {
       position: 'relative',
     }}>
       <img 
-        src={`${process.env.BASE_APP_URL}/vercel.svg`} 
+        src={`${env.appUrl}/vercel.svg`} 
         alt="Vercel Daily News"
         style={{
           display: 'flex',
