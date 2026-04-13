@@ -76,17 +76,6 @@ pnpm gen:openapi
 
 The app leverages Next.js 16's `'use cache'` directive with custom cache profiles defined in `next.config.ts`.
 
-| Profile | Revalidate | Expire | Stale | Use Case |
-|---|---|---|---|---|
-| `article` | 7 days | 30 days | — | Individual article pages |
-| `featured-articles` | 12 hours | 24 hours | — | Featured articles on the home page |
-| `trending-articles` | 1 hour | 2 hours | — | Trending articles widget |
-| `breaking-news` | 5 minutes | 1 hour | 3 minutes | Breaking news banner |
-| `categories` | 2 days | 7 days | 12 hours | Article category filters |
-| `filtered-articles` | — | 1 hour | — | Search results with category/query filters |
-
-Additionally:
-
 - **`cacheTag`** is used on every cached query to enable targeted on-demand revalidation via the webhook API (`/api/webhooks/cache`).
 - **`cacheComponents: true`** is enabled in `next.config.ts` for component-level caching.
 - **Free-text search queries** bypass the cache entirely to ensure fresh results.
